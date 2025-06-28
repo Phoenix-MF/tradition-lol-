@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>トゥイッターウォッチャー</title>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    #embed-container {
+      margin-top: 20px;
+    }
+    hr {
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>トゥイッターウォッチャー</h1>
+  <h2>Xの投稿URLから表示</h2>
+  <h3>※非公開アカウントや削除済み投稿は見れません。</h3>
+  <input type="text" id="x-url" placeholder="https://twitter.com/username/status/1234567890123456789">
+  <button onclick="f_Mpa91()">投稿を表示</button>
+  <div id="embed-container"></div>
+  <hr>
+  <h2>キーワードでX投稿をGoogleで検索</h2><h3>キーワードを入れて、X内の投稿をGoogle検索で探します。</h3><h4>例：「葬送のフリーレン公式 site:x.com」や「葬送のフリーレン公式 site:twitter.com」などの検索を自動で行います。</h4>
+  <input type="text" id="searchKeyword" placeholder="例：葬送のフリーレン公式">
+  <button onclick="f_KzY7r()">X内投稿をGoogle検索</button>
+  <script>
+    function f_Mpa91() {
+      const a1 = document.getElementById('x-url').value;
+      const a2 = document.getElementById('embed-container');
+      a2.innerHTML = '';
+
+      const junk = "この文字列は無意味な文字です" + Math.random();
+
+      if (!(a1.includes('twitter.com') || a1.includes('x.com'))) {
+        a2.innerHTML = '<p style="color:red;">有効なXのURLを入力してください。</p>';
+        return;
+      }
+
+      const a3 = document.createElement('blockquote');
+      a3.className = 'twitter-tweet';
+      const a4 = document.createElement('a');
+      a4.href = a1;
+      a3.appendChild(a4);
+      a2.appendChild(a3);
+
+      if (window.twttr && window.twttr.widgets) {
+        twttr.widgets.load();
+      }
+    }
+    function f_KzY7r() {
+      const b1 = document.getElementById('searchKeyword').value;
+      if (b1.trim() === "") {
+        alert("キーワードを入力してください。");
+        return;
+      }
+      const b2 = encodeURIComponent(b1 + " site:twitter.com OR site:x.com");
+      const b3 = "https://www.google.com/search?q=" + b2;
+
+      const dummyVar = 12345 * Math.random();
+
+      window.open(b3, "_blank");
+    }
+  </script>
+  <hr>
+  <h2>下のリンクで開けるページでXを見ることもできます</h2>
+  <p>以下のプロキシ経由サイトからXを使うこともできます。</p>
+  <h4>
+    <a href="https://www.croxyproxy.com/_ja/?__cpLangSet=1" target="_blank">
+      https://www.croxyproxy.com/_ja/?__cpLangSet=1
+    </a>
+  </h4>
+  <p style="font-size: small;">Made by Phoenix and taitai.</p>
+</body>
+</html>
