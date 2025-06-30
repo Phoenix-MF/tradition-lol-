@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>More actions
+  <meta charset="UTF-8">
+  <title>HTMLダウンロードページ</title>
+</head>
+<body>
+  <h1>「便利な」サイト　ダウンロードページ</h1>
+  <ul>
+    <li><a href="P-youtube_embed.html" download>ようつべウォッチャー（html） をダウンロード</a></li>
+    <li><a href="P-X_embed.html" download>トゥイッターウォッチャー（html） をダウンロード</a></li>
+    <li><a href="P-X_embed.html" download>X（旧Twitter）埋め込みデモ（html） をダウンロード</a></li>
+    <li><h2>＜方法＞</h2></li>
+    <li><h3>①上のリンクからダウンロードする</h3></li>
+    <li><h3>②ファイル（📁）などでダウンロードした上記のファイルをダブルクリックで開く</h3></li>
+    <li><h3>③開いたページに書かれているように操作</h3></li>
+  </ul>
+  <h5>Made by Phoenix.</h5>
+  <h5>Collaborators:taitai.</h5>
+</body>
+</html>
