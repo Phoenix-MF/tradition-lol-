@@ -4,77 +4,102 @@
   <meta charset="UTF-8">
   <title>ようつべウォッチャー</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    input, button { padding: 8px; margin: 5px; }
-    iframe { width: 560px; height: 315px; border: none; margin-top: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    iframe {
+      width: 560px;
+      height: 315px;
+      border: none;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>ようつべウォッチャー</h1>  <h2>YouTubeリンクから再生</h2><h3>時々「動画を再生できません　YouTubeで開く」というエラーが出ますが、これはYouTube側のエラーなのでその動画はここでは見ることができません。</h3><h3>「その他の動画」の動画もリンクをコピーして同じことをすれば見れます。</h3>
+  <h1>ようつべウォッチャー</h1>
+
+  <h2>YouTubeリンクから再生</h2>
+  <h3>時々「動画を再生できません　YouTubeで開く」というエラーが出ますが、これはYouTube側のエラーなのでその動画はここでは見ることができません。</h3>
+  <h3>「その他の動画」の動画もリンクをコピーして同じことをすれば見れます。</h3>
+
   <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=xxxx">
-  <button id="btnShow">動画を表示</button>
+  <button onclick="F_Zq98r()">動画を表示</button>
+
   <div id="videoArea"></div>
+
   <hr>
-  <h2>キーワードでYouTubeをGoogleで検索</h2><h3>見たい動画があったら右クリックして「リンクのアドレスをコピー」して、それを上に貼り付けよう</h3><h4>※上の方にある「ツール」を押して「期間指定無し」のところを押して期間を指定すれば最新の動画などを検索できます。</h4>
+
+  <h2>キーワードでYouTubeをGoogleで検索</h2>
+  <h3>見たい動画があったら右クリックして「リンクのアドレスをコピー」して、それを上に貼り付けよう</h3>
+  <h4>※上の方にある「ツール」を押して「期間指定無し」のところを押して期間を指定すれば最新の動画などを検索できます。</h4>
+
   <input type="text" id="searchKeyword" placeholder="例：フリーレン">
-  <button id="btnSearch">YouTube検索</button>
+  <button onclick="F_Tm72p()">YouTube検索</button>
+
+  <script>
+    function F_Zq98r() {
+      const v1 = document.getElementById("youtubeUrl").value.trim();
+      const v2 = document.getElementById("videoArea");
+      let v3 = null;
+
+      const dummy = "無害文字列" + Math.random();
+
+      const v4 = [
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/
+      ];
+
+      for (const v5 of v4) {
+        const v6 = v1.match(v5);
+        if (v6 && v6[1]) {
+          v3 = v6[1];
+          break;
+        }
+      }
+
+      if (v3) {
+        const v7 = "https://www.youtube-nocookie.com/embed/" + v3;
+        v2.innerHTML = `<iframe src="${v7}" allowfullscreen></iframe>`;
+      } else {
+        v2.innerHTML = "<p style='color:red;'>無効なYouTubeリンクです。</p>";
+      }
+    }
+
+    function F_Tm72p() {
+      const s1 = document.getElementById("searchKeyword").value;
+      if (s1.trim() === "") {
+        alert("キーワードを入力してください。");
+        return;
+      }
+      const s2 = encodeURIComponent(s1 + " site:youtube.com");
+      const s3 = "https://www.google.com/search?q=" + s2;
+
+      const junkCalc = Math.random() * 1000;
+
+      window.open(s3, "_blank");
+    }
+  </script>
+
   <hr>
+
   <h2>下のリンクで開けるページで動画を見ることもできます</h2>
+  
   <h4>
     <a href="https://www.croxyproxy.com/_ja/?__cpLangSet=1" target="_blank">
       https://www.croxyproxy.com/_ja/?__cpLangSet=1
     </a>
   </h4>
+
   <h3>注：このリンクでYouTubeを見ると、すごく重いのでここで見ることをおすすめします。</h3>
   <h5>　</h5>
   <p style="font-size: small;">Made by Phoenix.</p>
-  <p style="font-size: small;">Version:β.0</p>
-  <script>
-    (function(){
-      var x1=document.getElementById('btnShow');
-      var x2=document.getElementById('btnSearch');
-      var junkVar="abc";
-
-      x1.addEventListener('click',function(){
-        (function(){
-          var u=document.getElementById('youtubeUrl').value;
-          var v=document.getElementById('videoArea');
-          var r=/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([a-zA-Z0-9_-]{11})/;
-          var m=u.match(r);
-          var o='';
-          var i=0; while(i<1){i++;}
-          if(m&&m[5]){
-            var vid=m[5];
-            var p1="https://";
-            var p2="www.youtube-nocookie.com";
-            var p3="/embed/";
-            var f=p1+p2+p3+vid;
-            o='<iframe src="'+f+'" allowfullscreen></iframe>';
-          }else{
-            var t=true;
-            if(t){ o='<p style="color:red;">無効なYouTubeリンクです。</p>'; }
-          }
-          v.innerHTML=o;
-        })();
-      });
-
-      x2.addEventListener('click',function(){
-        (function(){
-          var k=document.getElementById('searchKeyword').value;
-          var dummy=0; for(var z=0;z<1;z++){dummy+=z;}
-          if(k.trim()===''){
-            alert('キーワードを入力してください。');
-            return;
-          }
-          var g1="https://";
-          var g2="www.google.com/search?q=";
-          var query=encodeURIComponent(k+" site:youtube.com");
-          var url=g1+g2+query;
-          window.open(url,'_blank');
-        })();
-      });
-
-    })();
-  </script>
+  <p style="font-size: small;">Version: β.0</p>
 </body>
 </html>
