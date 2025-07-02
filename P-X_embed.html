@@ -25,49 +25,47 @@
   <h1>トゥイッターウォッチャー</h1>
   <h2>Xの投稿URLから表示</h2>
   <h3>※非公開アカウントや削除済み投稿は見れません。</h3>
-  <input type="text" id="x-url" placeholder="https://twitter.com/username/status/1234567890123456789">
-  <button onclick="f_Mpa91()">投稿を表示</button>
-  <div id="embed-container"></div>
+  <input type="text" id="x-url" placeholder="https://x.com/username/status/1234567890123456789 または https://twitter.com/...">
+  <button onclick="a()">投稿を表示</button>
+  <div id="b"></div>
   <hr>
   <h2>キーワードでX投稿をGoogleで検索</h2><h3>キーワードを入れて、X内の投稿をGoogle検索で探します。</h3><h4>例：「葬送のフリーレン公式 site:x.com」や「葬送のフリーレン公式 site:twitter.com」などの検索を自動で行います。</h4>
-  <input type="text" id="searchKeyword" placeholder="例：葬送のフリーレン公式">
-  <button onclick="f_KzY7r()">X内投稿をGoogle検索</button>
+  <input type="text" id="c" placeholder="例：葬送のフリーレン公式">
+  <button onclick="d()">X内投稿をGoogle検索</button>
   <script>
-    function f_Mpa91() {
-      const a1 = document.getElementById('x-url').value;
-      const a2 = document.getElementById('embed-container');
-      a2.innerHTML = '';
+    function a() {
+      const e = document.getElementById('x-url').value.trim();
+      const f = document.getElementById('b');
+      f.innerHTML = '';
 
-      const junk = "この文字列は無意味な文字です" + Math.random();
-
-      if (!(a1.includes('twitter.com') || a1.includes('x.com'))) {
-        a2.innerHTML = '<p style="color:red;">有効なXのURLを入力してください。</p>';
+      const g = /(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/[^\/]+\/status\/\d+/i;
+      if (!g.test(e)) {
+        f.innerHTML = '<p style="color:red;">有効なXまたはTwitterの投稿URLを入力してください。</p>';
         return;
       }
 
-      const a3 = document.createElement('blockquote');
-      a3.className = 'twitter-tweet';
-      const a4 = document.createElement('a');
-      a4.href = a1;
-      a3.appendChild(a4);
-      a2.appendChild(a3);
+      const h = document.createElement('blockquote');
+      h.className = 'twitter-tweet';
+      const i = document.createElement('a');
+      i.href = e;
+      h.appendChild(i);
+      f.appendChild(h);
 
       if (window.twttr && window.twttr.widgets) {
-        twttr.widgets.load();
+        twttr.widgets.load(f);
+      } else {
+        console.error('Twitter widgets.jsがまだ読み込まれていません。');
       }
     }
-    function f_KzY7r() {
-      const b1 = document.getElementById('searchKeyword').value;
-      if (b1.trim() === "") {
+
+    function d() {
+      const j = document.getElementById('c').value.trim();
+      if (j === "") {
         alert("キーワードを入力してください。");
         return;
       }
-      const b2 = encodeURIComponent(b1 + " site:twitter.com OR site:x.com");
-      const b3 = "https://www.google.com/search?q=" + b2;
-
-      const dummyVar = 12345 * Math.random();
-
-      window.open(b3, "_blank");
+      const k = encodeURIComponent(j + " site:twitter.com OR site:x.com");
+      window.open("https://www.google.com/search?q=" + k, "_blank");
     }
   </script>
   <hr>
